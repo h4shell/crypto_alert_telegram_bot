@@ -13,7 +13,13 @@ app.get("/", (req, res) => {
     },
 
     //make sure to serialize your JSON body
-    body: `{"message": "Hello World!"}`,
+    body: `
+    {
+        "lp":"BNB-USDT",
+        "price": "1000",
+        "signal":"buy",
+        "timeframe":"1M"
+    }`,
   }).then((response) => {
     //do something awesome that makes the world a better place
   });

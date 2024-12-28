@@ -13,15 +13,13 @@ const sendMessage = async (chatId, text, lp) => {
     lp = lp.split("-");
     const tradingViewUrl = `https://www.tradingview.com/chart/?symbol=BINANCE%3A${lp[0]}${lp[1]}`;
 
-    const inlineKeyboard1 = [
+    const inlineKeyboard = [
       [
         {
           text: "SHOW ON TRADING VIEW",
           url: tradingViewUrl,
         },
       ],
-    ];
-    const inlineKeyboard2 = [
       [
         {
           text: "BUY A LEDGER",
@@ -29,20 +27,11 @@ const sendMessage = async (chatId, text, lp) => {
         },
       ],
     ];
-    const log = await bot.sendMessage(
-      chatId,
-      text,
-      {
-        reply_markup: {
-          inline_keyboard: inlineKeyboard1,
-        },
+    const log = await bot.sendMessage(chatId, text, {
+      reply_markup: {
+        inline_keyboard: inlineKeyboard,
       },
-      {
-        reply_markup: {
-          inline_keyboard: inlineKeyboard2,
-        },
-      }
-    );
+    });
     // console.log(log);
   } catch (error) {
     console.error("Errore nell'invio del messaggio:", error);
