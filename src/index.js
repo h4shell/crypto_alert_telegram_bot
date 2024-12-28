@@ -26,14 +26,15 @@ app.post("/", (req, res) => {
   const price = req.body.price;
   const timeframe = req.body.timeframe;
   const signal = req.body.signal;
+  const lp = req.body.lp;
 
   const message = `
-💰 BNB/USDT 🚀
+💰 ${lp} 🚀
 📈 Current price: ${price}
 ⏱️ Timeframe: ${timeframe}
-🔔 Current signal: ${signal}📢
+🔔 Current signal: ${signal.toUpperCase()}📢
 
-📊 Trend: The market is showing ${signal} signals, evaluate carefully!
+📊 Trend: The market is showing ${signal.toUpperCase()} signals, evaluate carefully!
 
 🔗 Stay updated with the next signals to seize the best opportunities.
 💡 Note: This is not financial advice. Invest responsibly!`;
