@@ -1,4 +1,7 @@
 const express = require("express");
+const fs = require("fs");
+const { createCanvas, loadImage } = require("canvas");
+
 const app = express();
 const { sendMessage } = require("./controllers/telegram");
 app.use(express.json());
@@ -16,7 +19,7 @@ app.get("/", (req, res) => {
     body: `
     {
         "lp":"BNB-USDT",
-        "price": "1000",
+        "price": "$1000",
         "signal":"buy",
         "timeframe":"1M"
     }`,
@@ -33,6 +36,72 @@ app.post("/", (req, res) => {
   const timeframe = req.body.timeframe;
   const signal = req.body.signal;
   const lp = req.body.lp;
+
+  if (signal === "buy") {
+    loadImage("images/bg-buy.png")
+      .then((image) => {
+        const width = 1920;
+        const height = 1080;
+        const canvas = createCanvas(width, height);
+        const ctx = canvas.getContext("2d");
+        // Disegna l'immagine come sfondo
+        ctx.drawImage(image, 0, 0, width, height);
+
+        // Aggiungi del testo
+        ctx.fillStyle = "white";
+        ctx.font = "250px Montserrat";
+        ctx.fillText(price, 130, 600);
+
+        ctx.fillStyle = "white";
+        ctx.font = "95px Montserrat";
+        ctx.fillText(timeframe, 1630, 290);
+
+        ctx.fillStyle = "white";
+        ctx.font = "95px Montserrat";
+        ctx.fillText(lp, 130, 290);
+
+        // Salva l'immagine come file PNG
+        const buffer = canvas.toBuffer("image/png");
+        fs.writeFileSync("tmp/canvas-image-with-background.png", buffer);
+
+        console.log("Immagine salvata come canvas-image-with-background.png");
+      })
+      .catch((error) => {
+        console.error("Errore nel caricamento dell'immagine:", error);
+      });
+  } else if (signal === "sell") {
+    loadImage("images/bg-sell.png")
+      .then((image) => {
+        const width = 1920;
+        const height = 1080;
+        const canvas = createCanvas(width, height);
+        const ctx = canvas.getContext("2d");
+        // Disegna l'immagine come sfondo
+        ctx.drawImage(image, 0, 0, width, height);
+
+        // Aggiungi del testo
+        ctx.fillStyle = "white";
+        ctx.font = "250px Montserrat";
+        ctx.fillText(price, 130, 600);
+
+        ctx.fillStyle = "white";
+        ctx.font = "95px Montserrat";
+        ctx.fillText(timeframe, 1630, 290);
+
+        ctx.fillStyle = "white";
+        ctx.font = "95px Montserrat";
+        ctx.fillText(lp, 130, 290);
+
+        // Salva l'immagine come file PNG
+        const buffer = canvas.toBuffer("image/png");
+        fs.writeFileSync("tmp/canvas-image-with-background.png", buffer);
+
+        console.log("Immagine salvata come canvas-image-with-background.png");
+      })
+      .catch((error) => {
+        console.error("Errore nel caricamento dell'immagine:", error);
+      });
+  }
 
   const message = `
 💰 ${lp} 🚀

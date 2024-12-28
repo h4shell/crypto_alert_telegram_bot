@@ -27,11 +27,21 @@ const sendMessage = async (chatId, text, lp) => {
         },
       ],
     ];
-    const log = await bot.sendMessage(chatId, text, {
-      reply_markup: {
-        inline_keyboard: inlineKeyboard,
-      },
-    });
+    // const log = await bot.sendMessage(chatId, text, {
+    //   reply_markup: {
+    //     inline_keyboard: inlineKeyboard,
+    //   },
+    // });
+    const log = await bot.sendPhoto(
+      chatId,
+      "tmp/canvas-image-with-background.png",
+      {
+        caption: text,
+        reply_markup: {
+          inline_keyboard: inlineKeyboard,
+        },
+      }
+    );
     // console.log(log);
   } catch (error) {
     console.error("Errore nell'invio del messaggio:", error);
