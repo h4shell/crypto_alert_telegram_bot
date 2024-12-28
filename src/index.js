@@ -48,7 +48,7 @@ app.post("/", (req, res) => {
         ctx.drawImage(image, 0, 0, width, height);
 
         // Aggiungi del testo
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "green";
         ctx.font = "250px Montserrat";
         ctx.fillText(price, 130, 600);
 
@@ -80,7 +80,7 @@ app.post("/", (req, res) => {
         ctx.drawImage(image, 0, 0, width, height);
 
         // Aggiungi del testo
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "red";
         ctx.font = "250px Montserrat";
         ctx.fillText(price, 130, 600);
 
