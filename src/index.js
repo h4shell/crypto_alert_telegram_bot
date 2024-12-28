@@ -39,7 +39,7 @@ app.post("/", (req, res) => {
 🔗 Stay updated with the next signals to seize the best opportunities.
 💡 Note: This is not financial advice. Invest responsibly!`;
 
-  sendMessage(process.env.TELEGRAM_CHAT_ID, message);
+  sendMessage(process.env.TELEGRAM_CHAT_ID, message, lp);
   res.json({ message: "Hello World!" });
 });
 

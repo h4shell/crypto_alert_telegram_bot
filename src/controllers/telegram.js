@@ -8,18 +8,20 @@ const TelegramBot = require("node-telegram-bot-api");
 const bot = new TelegramBot(token, { polling: true });
 
 // Funzione per inviare un messaggio
-const sendMessage = async (chatId, text) => {
+const sendMessage = async (chatId, text, lp) => {
   try {
+    lp = lp.split("-");
+    const tradingViewUrl = `https://www.tradingview.com/chart/?symbol=BINANCE%3A${lp[0]}${lp[1]}`;
+
     const inlineKeyboard = [
       [
         {
-          text: "Button 1",
+          text: "SHOW ON TRADING VIEW",
           url: "https://example.com",
         },
         {
-          text: "Button 2",
-          callback_data: "button2",
-          url: "https://example.com",
+          text: "BUY A LEDGER",
+          url: "https://shop.ledger.com/pages/referral-program?referral_code=J7GM9J21S0Q79",
         },
       ],
     ];
