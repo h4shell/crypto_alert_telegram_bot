@@ -30,12 +30,11 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  console.log("POST");
-  console.log(req.body);
-  const price = req.body.price;
+  const price = parseFloat(req.body.price.split("$")[1]);
   const timeframe = req.body.timeframe;
   const signal = req.body.signal;
   const lp = req.body.lp;
+
 
   if (signal === "buy") {
     loadImage("images/bg-buy.png")
@@ -50,7 +49,7 @@ app.post("/", (req, res) => {
         // Aggiungi del testo
         ctx.fillStyle = "green";
         ctx.font = "250px Montserrat";
-        ctx.fillText(price, 130, 600);
+        ctx.fillText( "$" + price, 130, 600);
 
         ctx.fillStyle = "white";
         ctx.font = "95px Montserrat";
@@ -82,7 +81,7 @@ app.post("/", (req, res) => {
         // Aggiungi del testo
         ctx.fillStyle = "red";
         ctx.font = "250px Montserrat";
-        ctx.fillText(price, 130, 600);
+        ctx.fillText("$" + price, 130, 600);
 
         ctx.fillStyle = "white";
         ctx.font = "95px Montserrat";
@@ -103,12 +102,16 @@ app.post("/", (req, res) => {
       });
   }
 
+  
+
   const message = `
 💰 ${lp} 🚀
 
-📈 Current price: ${price}
+📈 Current price: ${"$" + price.toFixed(2)}
 ⏱️ Timeframe: ${timeframe}
 🔔 Current signal: ${signal.toUpperCase()}📢
+🟩 take profit: ${"$" + (price * 1.015).toFixed(2)} (+1.5%)🟩
+🟥 stop loss: ${"$" + (price * 0.990).toFixed(2)} (-1.0%)🟥
 
 📊 Trend: The market is showing ${signal.toUpperCase()} signals, evaluate carefully!
 
@@ -116,9 +119,13 @@ app.post("/", (req, res) => {
 
 💡 Note: This is not financial advice. Invest responsibly!`;
 
+
+  console.log(message);
   sendMessage(process.env.TELEGRAM_CHAT_ID, message, lp);
-  res.json({ message: "Hello World!" });
+  res.json({ code: 200 });
 });
+
+
 
 app.listen(3000, () => {
   console.log("Server started on port 3000");
